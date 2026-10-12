@@ -1,61 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Systemebiblio
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[🇬🇧 English](#-english) · [🇫🇷 Français](#-français)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🇬🇧 English
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+School library management system built with **Laravel 12** (PHP 8.2+), MySQL, Tailwind CSS and Chart.js. The interface is in French.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Features
 
-## Learning Laravel
+- **Books and categories**: title, author, category, total quantity, available copies, filters.
+- **Subscribers (students)**: name, date of birth, class, phone, address.
+- **Loans**: record loans and returns, with statuses *in progress*, *late* and *returned*.
+- **Dashboard** with recent activities.
+- **Statistics** with 6 Chart.js charts (books per category, loans over 12 months, most borrowed books, loan statuses, monthly loans vs. returns, availability).
+- **Activity log** (`/admin/activity-logs`): list, export, filters, cleanup.
+- Login / logout, user roles, dark mode.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Requirements: PHP 8.2+, Composer, Node.js, MySQL (XAMPP), Git.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/Chrisdaniel01-dev/Systemebiblio.git
+cd Systemebiblio
+composer install
+npm install
+copy .env.example .env      # Linux / macOS: cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+Start Apache and MySQL in XAMPP, then create an empty database `biblio_db` in phpMyAdmin and set it in `.env`:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblio_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-### Premium Partners
+Create the tables, then the first administrator:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+php artisan migrate
+php artisan tinker
+```
 
-## Contributing
+```php
+App\Models\User::forceCreate([
+    'name' => 'Administrator',
+    'email' => 'your-email@example.com',
+    'password' => bcrypt('choose-a-strong-password'),
+    'role' => 'admin',
+]);
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Build the assets and start the app:
 
-## Code of Conduct
+```bash
+npm run build
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Open http://127.0.0.1:8000 and log in at `/login`.
 
-## Security Vulnerabilities
+### License
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+MIT. Author: [Chrisdaniel01-dev](https://github.com/Chrisdaniel01-dev).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🇫🇷 Français
+
+Système de gestion de bibliothèque scolaire développé avec **Laravel 12** (PHP 8.2+), MySQL, Tailwind CSS et Chart.js. L'interface est en français.
+
+### Fonctionnalités
+
+- **Livres et catégories** : titre, auteur, catégorie, quantité totale, exemplaires disponibles, filtres.
+- **Abonnés (élèves)** : nom, date de naissance, classe, téléphone, adresse.
+- **Emprunts** : enregistrement des emprunts et des retours, avec les statuts *en cours*, *en retard* et *retourné*.
+- **Tableau de bord** avec les activités récentes.
+- **Statistiques** avec 6 graphiques Chart.js (livres par catégorie, emprunts sur 12 mois, livres les plus empruntés, statuts des emprunts, emprunts et retours par mois, disponibilité).
+- **Journal d'activité** (`/admin/activity-logs`) : liste, export, filtres, nettoyage.
+- Connexion / déconnexion, rôles utilisateur, mode sombre.
+
+### Installation
+
+Prérequis : PHP 8.2+, Composer, Node.js, MySQL (XAMPP), Git.
+
+```bash
+git clone https://github.com/Chrisdaniel01-dev/Systemebiblio.git
+cd Systemebiblio
+composer install
+npm install
+copy .env.example .env      # Linux / macOS : cp .env.example .env
+php artisan key:generate
+```
+
+Démarrez Apache et MySQL dans XAMPP, créez une base vide `biblio_db` dans phpMyAdmin, puis renseignez-la dans `.env` :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblio_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Créez les tables, puis le premier administrateur :
+
+```bash
+php artisan migrate
+php artisan tinker
+```
+
+```php
+App\Models\User::forceCreate([
+    'name' => 'Administrateur',
+    'email' => 'votre-email@example.com',
+    'password' => bcrypt('choisissez-un-mot-de-passe-solide'),
+    'role' => 'admin',
+]);
+```
+
+Compilez les assets et lancez l'application :
+
+```bash
+
+php artisan serve
+```
+
+Ouvrez http://127.0.0.1:8000 et connectez-vous sur `/login`.
+
+### Licence
+
+MIT. Auteur : Chrisdaniel01-dev.
